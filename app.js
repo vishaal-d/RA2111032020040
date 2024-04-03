@@ -1,14 +1,12 @@
 const express = require('express');
 const app = express();
 
-// Function to generate random number between min and max (inclusive)
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Function to check if a number is prime
 function isPrime(num) {
   if (num <= 1) return false;
   if (num <= 3) return true;
@@ -21,7 +19,6 @@ function isPrime(num) {
   return true;
 }
 
-// Function to generate Fibonacci sequence up to n
 function generateFibonacci(n) {
   const fib = [0, 1];
   for (let i = 2; i <= n; i++) {
@@ -30,7 +27,6 @@ function generateFibonacci(n) {
   return fib.slice(0, n + 1);
 }
 
-// Function to generate a list of even numbers up to n
 function generateEven(n) {
   const evens = [];
   for (let i = 2; i <= n; i += 2) {
@@ -39,30 +35,28 @@ function generateEven(n) {
   return evens;
 }
 
-// Function to calculate average of an array of numbers
 function calculateAverage(arr) {
   const sum = arr.reduce((acc, num) => acc + num, 0);
   return sum / arr.length;
 }
 
-// Route handler
 app.get('/numbers/:type/:number', (req, res) => {
   const { type, number } = req.params;
   let result = [];
 
   switch (type) {
-    case 'r': // Random numbers
+    case 'r': 
       for (let i = 0; i < number; i++) {
-        result.push(getRandomInt(1, 100)); // Change range as needed
+        result.push(getRandomInt(1, 100)); 
       }
       break;
-    case 'e': // Even numbers
+    case 'e': 
       result = generateEven(parseInt(number));
       break;
-    case 'f': // Fibonacci numbers
+    case 'f': 
       result = generateFibonacci(parseInt(number));
       break;
-    case 'p': // Prime numbers
+    case 'p': 
       let count = 0;
       let num = 2;
       while (count < number) {
@@ -73,9 +67,8 @@ app.get('/numbers/:type/:number', (req, res) => {
         num++;
       }
       break;
-    case 'a': // Average of numbers
-      // Assuming the numbers are passed as a comma-separated string in the URL
-      result = req.query.numbers.split(',').map(Number); // Convert string to array of numbers
+    case 'a': 
+      result = req.query.numbers.split(',').map(Number); 
       break;
     default:
       res.status(400).json({ error: 'Invalid type' });
